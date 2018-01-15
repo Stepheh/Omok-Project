@@ -151,7 +151,10 @@ public class OmokBoard implements OmokState, ActionListener{
 				if (checkStates()) {
 					//TODO: Display win message/board + end game board aka. would you like to play again?
 					//Temporary message.
-					System.out.println("You won the game! WOOOHOO");
+					if (player == 1)
+						System.out.println("Bear won the game! WOOOHOO");
+					else
+						System.out.println("Bunny won the game! WOOHOO");
 				}
 				// Change the player.
 				player = player - 1 == 0 ? 0 : 1;
@@ -174,6 +177,7 @@ public class OmokBoard implements OmokState, ActionListener{
 	}
 	
 	// TODO: Check if the board is a winning state or not.
+	// Might need to generalize this.
 	/**
 	 * This function will be verifying the current status of the game board.
 	 * It will return true if a player has won, and false otherwise.
