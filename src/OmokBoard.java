@@ -148,7 +148,7 @@ public class OmokBoard implements OmokState, ActionListener{
 					states[rows][cols] = Pieces.BUNNY;
 					break;
 				}
-				if (checkStates()) {
+				if (checkStates(rows, cols)) {
 					//TODO: Display win message/board + end game board aka. would you like to play again?
 					//Temporary message.
 					if (player == 1)
@@ -179,68 +179,60 @@ public class OmokBoard implements OmokState, ActionListener{
 	// TODO: Check if the board is a winning state or not.
 	// Might need to generalize this.
 	/**
-	 * This function will be verifying the current status of the game board.
-	 * It will return true if a player has won, and false otherwise.
+	 *  This function will be verifying the current status of the game board
+	 *  starting from the token the player entered.
+	 *  It will return true if a player has won, and false otherwise.
+	 * @param row The row the player chose.
+	 * @param col The column the player chose.
+	 * @return
 	 */
-	private boolean checkStates() {
-		for (int row = 0; row < size; row++) {
-			for (int col = 0; col < size; col++) {
-				if (VerticalWin()) {
-					return true;
-				} else if (HorizontalWin()) {
-					return true;
-				} if (states[row][col] == Pieces.BUNNY) {
-					
-				}
-			}
+	private boolean checkStates(int row, int col) {
+		if (VerticalWin(row, col)) {
+			return true;
+		} else if (HorizontalWin(row, col)) {
+			return true;
+		} //TODO: missing diagonals
+		return false;
+	}
+	
+	// TODO: Must generalize this function.
+	/**
+	 * This function will check if there are five of the same tokens placed
+	 * consecutively on the same column given the last move played.
+	 * @param row
+	 * @param col
+	 * @return
+	 */
+	private boolean VerticalWin(int row, int col) {
+		if (states[row][col] == Pieces.BEAR && states[row+1][col] == Pieces.BEAR
+				&& states[row+2][col] == Pieces.BEAR && states[row+3][col] == Pieces.BEAR
+				&& states[row+4][col] == Pieces.BEAR) {
+			return true;
+		} else if (states[row][col] == Pieces.BUNNY && states[row+1][col] == Pieces.BUNNY
+				&& states[row+2][col] == Pieces.BUNNY && states[row+3][col] == Pieces.BUNNY
+				&& states[row+4][col] == Pieces.BUNNY) {
+			return true;
 		}
 		return false;
 	}
 	
 	// TODO: Must generalize this function.
-	// O^n searches is too bad of a complexity.
 	/**
 	 * This function will check if there are five of the same tokens placed
-	 * consecutively on the same column.
+	 * consecutively on the same row given the last move played.
+	 * @param row
+	 * @param col
 	 * @return
 	 */
-	private boolean VerticalWin() {
-		for (int row = 0; row < size; row++) {
-			for (int col = 0; col < size; col++) {
-				if (states[row][col] == Pieces.BEAR && states[row+1][col] == Pieces.BEAR
-						&& states[row+2][col] == Pieces.BEAR && states[row+3][col] == Pieces.BEAR
-						&& states[row+4][col] == Pieces.BEAR) {
-					return true;
-				} else if (states[row][col] == Pieces.BUNNY && states[row+1][col] == Pieces.BUNNY
-						&& states[row+2][col] == Pieces.BUNNY && states[row+3][col] == Pieces.BUNNY
-						&& states[row+4][col] == Pieces.BUNNY) {
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-	
-	// TODO: Must generalize this function.
-	// O^n searches is too bad of a complexity.
-	/**
-	 * This function will check if there are five of the same tokens placed
-	 * consecutively on the same row.
-	 * @return
-	 */
-	private boolean HorizontalWin() {
-		for (int row = 0; row < size; row++) {
-			for (int col = 0; col < size; col++) {
-				if (states[row][col] == Pieces.BEAR && states[row][col+1] == Pieces.BEAR
-						&& states[row][col+2] == Pieces.BEAR && states[row][col+3] == Pieces.BEAR
-						&& states[row][col+4] == Pieces.BEAR) {
-					return true;
-				} else if (states[row][col] == Pieces.BUNNY && states[row][col+1] == Pieces.BUNNY
-						&& states[row][col+2] == Pieces.BUNNY && states[row][col+3] == Pieces.BUNNY
-						&& states[row][col+4] == Pieces.BUNNY) {
-					return true;
-				}
-			}
+	private boolean HorizontalWin(int row, int col) {
+		if (states[row][col] == Pieces.BEAR && states[row][col+1] == Pieces.BEAR
+				&& states[row][col+2] == Pieces.BEAR && states[row][col+3] == Pieces.BEAR
+				&& states[row][col+4] == Pieces.BEAR) {
+			return true;
+		} else if (states[row][col] == Pieces.BUNNY && states[row][col+1] == Pieces.BUNNY
+				&& states[row][col+2] == Pieces.BUNNY && states[row][col+3] == Pieces.BUNNY
+				&& states[row][col+4] == Pieces.BUNNY) {
+			return true;
 		}
 		return false;
 	}
@@ -249,10 +241,10 @@ public class OmokBoard implements OmokState, ActionListener{
 	// O^n is too bad of a complexity.
 	/**
 	 * This function will check if there are five of the same tokens placed
-	 * consecutively in a diagonal.
+	 * consecutively in a diagonal given the last move played.
 	 * @return
 	 */
-	private boolean DiagonalWins() {
+	private boolean DiagonalWins(int row, int col) {
 		return false;
 	}
 	
