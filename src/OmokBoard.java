@@ -149,6 +149,7 @@ public class OmokBoard implements OmokState, ActionListener{
 					break;
 				}
 				if (checkStates(rows, cols, player)) {
+					System.out.println("Entered state");
 					//TODO: Display win message/board + end game board aka. would you like to play again?
 					//Temporary message.
 					if (player == 1)
@@ -195,7 +196,6 @@ public class OmokBoard implements OmokState, ActionListener{
 		return false;
 	}
 	
-	// TODO: Must generalize this function.
 	/**
 	 * This function will check if there are five of the same tokens placed
 	 * consecutively on the same column given the last move played.
@@ -214,28 +214,28 @@ public class OmokBoard implements OmokState, ActionListener{
 					return true;
 			}
 			// Inserted token at position 1 of the column.
-			if (row-1>0 && row+1<size && row+2<size && row+3<size
+			else if (row-1>=0 && row+1<size && row+2<size && row+3<size
 				&& states[row][col] == Pieces.BEAR && states[row-1][col] == Pieces.BEAR
 				&& states[row+1][col] == Pieces.BEAR && states[row+2][col] == Pieces.BEAR
 				&& states[row+3][col] == Pieces.BEAR) {
 					return true;
 			}
 			// Inserted token at position 2 of the column.
-			if (row-1>0 && row-2>0 && row+1<size && row+2<size
+			else if (row-1>=0 && row-2>=0 && row+1<size && row+2<size
 				&& states[row][col] == Pieces.BEAR && states[row-1][col] == Pieces.BEAR
 				&& states[row-2][col] == Pieces.BEAR && states[row+1][col] == Pieces.BEAR
 				&& states[row+2][col] == Pieces.BEAR) {
 					return true;
 			}
 			// Inserted token at position 3 of the column.
-			if (row-1>0 && row-2>0 && row-3>0 && row+1<size
+			else if (row-1>=0 && row-2>=0 && row-3>=0 && row+1<size
 				&& states[row][col] == Pieces.BEAR && states[row-1][col] == Pieces.BEAR
 				&& states[row-2][col] == Pieces.BEAR && states[row-3][col] == Pieces.BEAR
 				&& states[row+1][col] == Pieces.BEAR) {
 					return true;
 			}
 			// Inserted token at position 4 of the column.
-			if (row-1>0 && row-2>0 && row-3>0 && row-4>0
+			else if (row-1>=0 && row-2>=0 && row-3>=0 && row-4>=0
 				&& states[row][col] == Pieces.BEAR && states[row-1][col] == Pieces.BEAR
 				&& states[row-2][col] == Pieces.BEAR && states[row-3][col] == Pieces.BEAR
 				&& states[row-4][col] == Pieces.BEAR) {
@@ -250,28 +250,28 @@ public class OmokBoard implements OmokState, ActionListener{
 					return true;
 			}
 			// Inserted token at position 1 of the column.
-			if (row-1>0 && row+1<size && row+2<size && row+3<size
+			else if (row-1>=0 && row+1<size && row+2<size && row+3<size
 				&& states[row][col] == Pieces.BUNNY && states[row-1][col] == Pieces.BUNNY
 				&& states[row+1][col] == Pieces.BUNNY && states[row+2][col] == Pieces.BUNNY
 				&& states[row+3][col] == Pieces.BUNNY) {
 					return true;
 			}
 			// Inserted token at position 2 of the column.
-			if (row-1>0 && row-2>0 && row+1<size && row+2<size
+			else if (row-1>=0 && row-2>=0 && row+1<size && row+2<size
 				&& states[row][col] == Pieces.BUNNY && states[row-1][col] == Pieces.BUNNY
 				&& states[row-2][col] == Pieces.BUNNY && states[row+1][col] == Pieces.BUNNY
 				&& states[row+2][col] == Pieces.BUNNY) {
 					return true;
 			}
 			// Inserted token at position 3 of the column.
-			if (row-1>0 && row-2>0 && row-3>0 && row+1<size
+			else if (row-1>=0 && row-2>=0 && row-3>=0 && row+1<size
 				&& states[row][col] == Pieces.BUNNY && states[row-1][col] == Pieces.BUNNY
 				&& states[row-2][col] == Pieces.BUNNY && states[row-3][col] == Pieces.BUNNY
 				&& states[row+1][col] == Pieces.BUNNY) {
 					return true;
 			}
 			// Inserted token at position 4 of the column.
-			if (row-1>0 && row-2>0 && row-3>0 && row-4>0
+			else if (row-1>=0 && row-2>=0 && row-3>=0 && row-4>=0
 				&& states[row][col] == Pieces.BUNNY && states[row-1][col] == Pieces.BUNNY
 				&& states[row-2][col] == Pieces.BUNNY && states[row-3][col] == Pieces.BUNNY
 				&& states[row-4][col] == Pieces.BUNNY) {
