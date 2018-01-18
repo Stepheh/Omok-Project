@@ -148,7 +148,7 @@ public class OmokBoard implements OmokState, ActionListener{
 					states[rows][cols] = Pieces.BUNNY;
 					break;
 				}
-				if (checkStates(rows, cols)) {
+				if (checkStates(rows, cols, player)) {
 					//TODO: Display win message/board + end game board aka. would you like to play again?
 					//Temporary message.
 					if (player == 1)
@@ -186,10 +186,10 @@ public class OmokBoard implements OmokState, ActionListener{
 	 * @param col The column the player chose.
 	 * @return
 	 */
-	private boolean checkStates(int row, int col) {
-		if (VerticalWin(row, col)) {
+	private boolean checkStates(int row, int col, int player) {
+		if (VerticalWin(row, col, player)) {
 			return true;
-		} else if (HorizontalWin(row, col)) {
+		} else if (HorizontalWin(row, col, player)) {
 			return true;
 		} //TODO: missing diagonals
 		return false;
@@ -203,15 +203,80 @@ public class OmokBoard implements OmokState, ActionListener{
 	 * @param col
 	 * @return
 	 */
-	private boolean VerticalWin(int row, int col) {
-		if (states[row][col] == Pieces.BEAR && states[row+1][col] == Pieces.BEAR
+	private boolean VerticalWin(int row, int col, int player) {
+		switch (player) {
+		case 1:
+			// Inserted token at position 0 of the column.
+			if (row+1<size && row+2<size && row+3<size && row+4<size
+				&& states[row][col] == Pieces.BEAR && states[row+1][col] == Pieces.BEAR
 				&& states[row+2][col] == Pieces.BEAR && states[row+3][col] == Pieces.BEAR
 				&& states[row+4][col] == Pieces.BEAR) {
-			return true;
-		} else if (states[row][col] == Pieces.BUNNY && states[row+1][col] == Pieces.BUNNY
+					return true;
+			}
+			// Inserted token at position 1 of the column.
+			if (row-1>0 && row+1<size && row+2<size && row+3<size
+				&& states[row][col] == Pieces.BEAR && states[row-1][col] == Pieces.BEAR
+				&& states[row+1][col] == Pieces.BEAR && states[row+2][col] == Pieces.BEAR
+				&& states[row+3][col] == Pieces.BEAR) {
+					return true;
+			}
+			// Inserted token at position 2 of the column.
+			if (row-1>0 && row-2>0 && row+1<size && row+2<size
+				&& states[row][col] == Pieces.BEAR && states[row-1][col] == Pieces.BEAR
+				&& states[row-2][col] == Pieces.BEAR && states[row+1][col] == Pieces.BEAR
+				&& states[row+2][col] == Pieces.BEAR) {
+					return true;
+			}
+			// Inserted token at position 3 of the column.
+			if (row-1>0 && row-2>0 && row-3>0 && row+1<size
+				&& states[row][col] == Pieces.BEAR && states[row-1][col] == Pieces.BEAR
+				&& states[row-2][col] == Pieces.BEAR && states[row-3][col] == Pieces.BEAR
+				&& states[row+1][col] == Pieces.BEAR) {
+					return true;
+			}
+			// Inserted token at position 4 of the column.
+			if (row-1>0 && row-2>0 && row-3>0 && row-4>0
+				&& states[row][col] == Pieces.BEAR && states[row-1][col] == Pieces.BEAR
+				&& states[row-2][col] == Pieces.BEAR && states[row-3][col] == Pieces.BEAR
+				&& states[row-4][col] == Pieces.BEAR) {
+					return true;
+			}
+		case 0:
+			// Inserted token at position 0 of the column.
+			if (row+1<size && row+2<size && row+3<size && row+4<size
+				&& states[row][col] == Pieces.BUNNY && states[row+1][col] == Pieces.BUNNY
 				&& states[row+2][col] == Pieces.BUNNY && states[row+3][col] == Pieces.BUNNY
 				&& states[row+4][col] == Pieces.BUNNY) {
-			return true;
+					return true;
+			}
+			// Inserted token at position 1 of the column.
+			if (row-1>0 && row+1<size && row+2<size && row+3<size
+				&& states[row][col] == Pieces.BUNNY && states[row-1][col] == Pieces.BUNNY
+				&& states[row+1][col] == Pieces.BUNNY && states[row+2][col] == Pieces.BUNNY
+				&& states[row+3][col] == Pieces.BUNNY) {
+					return true;
+			}
+			// Inserted token at position 2 of the column.
+			if (row-1>0 && row-2>0 && row+1<size && row+2<size
+				&& states[row][col] == Pieces.BUNNY && states[row-1][col] == Pieces.BUNNY
+				&& states[row-2][col] == Pieces.BUNNY && states[row+1][col] == Pieces.BUNNY
+				&& states[row+2][col] == Pieces.BUNNY) {
+					return true;
+			}
+			// Inserted token at position 3 of the column.
+			if (row-1>0 && row-2>0 && row-3>0 && row+1<size
+				&& states[row][col] == Pieces.BUNNY && states[row-1][col] == Pieces.BUNNY
+				&& states[row-2][col] == Pieces.BUNNY && states[row-3][col] == Pieces.BUNNY
+				&& states[row+1][col] == Pieces.BUNNY) {
+					return true;
+			}
+			// Inserted token at position 4 of the column.
+			if (row-1>0 && row-2>0 && row-3>0 && row-4>0
+				&& states[row][col] == Pieces.BUNNY && states[row-1][col] == Pieces.BUNNY
+				&& states[row-2][col] == Pieces.BUNNY && states[row-3][col] == Pieces.BUNNY
+				&& states[row-4][col] == Pieces.BUNNY) {
+					return true;
+			}
 		}
 		return false;
 	}
@@ -224,7 +289,7 @@ public class OmokBoard implements OmokState, ActionListener{
 	 * @param col
 	 * @return
 	 */
-	private boolean HorizontalWin(int row, int col) {
+	private boolean HorizontalWin(int row, int col, int player) {
 		if (states[row][col] == Pieces.BEAR && states[row][col+1] == Pieces.BEAR
 				&& states[row][col+2] == Pieces.BEAR && states[row][col+3] == Pieces.BEAR
 				&& states[row][col+4] == Pieces.BEAR) {
@@ -244,7 +309,7 @@ public class OmokBoard implements OmokState, ActionListener{
 	 * consecutively in a diagonal given the last move played.
 	 * @return
 	 */
-	private boolean DiagonalWins(int row, int col) {
+	private boolean DiagonalWins(int row, int col, int player) {
 		return false;
 	}
 	
